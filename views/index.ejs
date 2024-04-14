@@ -1,0 +1,41 @@
+<%- include("./partials/header.ejs") %>
+
+
+    <header>
+        <h1>To Do List</h1>
+    </header>
+
+
+    <div class="container">
+        <form action="/add" autocomplete="off" method="POST" class="subcontainer">
+            <input name="textField" type="text" maxlength="28" placeholder="Enter your text"
+                value="<%=locals.toDoEditItem%>" required>
+            <button name="add"><i class="fa-solid fa-plus"></i></button>
+        </form>
+        <div class="subcontainer2">
+            <ul>
+                <% if (locals.toDoList.length> 0) {
+                    for (let item of toDoList){%>
+                    <li class="list-item">
+                        <div class="text">
+                            <%=item.toDo%>
+                        </div>
+                        <div class="options">
+                            <form action="/edit/<%=item._id%>" method="POST" class="edit">
+                                <button><i class="fa-solid fa-pen-to-square"></i></button>
+                            </form>
+                            <form action="/delete/<%=item._id%>" method="POST" class="delete">
+                                <button><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </div>
+                    </li>
+            </ul>
+            <% } }else { /*empty todo*/%>
+                <div class="empty">
+                    <i class="fa-regular fa-folder-open"></i>
+                </div>
+                <% } %>
+        </div>
+    </div>
+
+    <%- include("./partials/footer.ejs") %>
