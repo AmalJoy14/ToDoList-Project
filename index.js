@@ -1,14 +1,26 @@
 import express from "express";
 import mongoose from "mongoose";
 import { schema as UserSchema } from "./models/ToDoList.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
-mongoose.connect("mongodb://localhost/ToDoList");
+mongoose.set('strictQuery',false);
+const connectDB = async ()=> {
+    try{
+        const conn = await mongoose.connect(process.env.MONGO_URI);
+        console.log(`MongoDB Connected : ${conn.connection.host}`);
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
 
 const collection = new mongoose.model("ToDoDatas", UserSchema, "ToDoDatas");
 
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -74,6 +86,9 @@ app.post("/delete/:item_id", async (req, res) => {
     }
 })
 
-app.listen(port, () => {
-    console.log(`Listening to port ${port}`);
-})
+connectDB().then(() =>{
+    app.listen(port, () => {
+        console.log(`Listening to port ${port}`);
+    })
+});
+
