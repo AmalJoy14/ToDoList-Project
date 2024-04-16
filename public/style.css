@@ -3,11 +3,10 @@
     padding: 0;
 }
 body{
-    overflow: hidden;
     position: relative;
     margin-top: 20px;
     background-color: rgb(162, 104, 85);
-    height: 750px;
+    height: 100vh;
 }
 h1{
     font-family: "Merienda";
@@ -16,7 +15,7 @@ h1{
     font-size: 50px;
 }
 .container{
-    height: 600px;
+    height: 550px;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -80,7 +79,7 @@ input{
 }
 footer {
     position: absolute;
-    bottom: 10px;
+    bottom: 50px;
     left: 50%;
     transform: translate(-50%);
 }
